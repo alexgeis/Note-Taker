@@ -72,35 +72,70 @@ app.post("/api/notes", (req, res) => {
   // return res.json(db);
 });
 
-app.delete("/api/notes:id", (req, res) => {
+app.delete("/api/notes/:id", (req, res) => {
   // Log our request to the terminal
-  console.info(`${req.method} request received to get notes`);
+  console.log(`${req.method} request received to get notes`);
+  res.send(`confirm delete`);
+  console.log(req.query);
+  console.log(req.params);
+  // if(req.query.portfolioId) {
+  //   console.log("Deleting portfolio: " + req.query.portfolioId);
+  //   stockService.deletePortfolio(req.query.portfolioId);
+  //   res.status(200).send({});
+  // } else {
+  //   res.status(400).send("Please specify a portfolioId");
+  // }
+  // if (req.params.id === req.body.id) {
+  //   fs.readFile(file, "utf8", (err, data) => {
+  //     if (err) {
+  //       console.error(err);
+  //     } else {
+  //       const parsedData = JSON.parse(data);
+  //       console.log(parsedData);
+  //       // parsedData.push(content);
+  //       // writeToFile(file, parsedData);
+  //     }
+  //   });
+  // }
+
+  // const { title, text } = req.body;
+  // if (title && text) {
+  //   const newNote = {
+  //     title,
+  //     text,
+  //     id: uuid(),
+  //   };
+  //   readAndAppend(newNote, "./db/db.json");
+  //   return res.json(db);
+  // } else {
+  //   res.error("Error in adding note");
+  // }
 });
 
-// POST request to add a review
-app.post("/api/reviews", (req, res) => {
-  // Log that a POST request was received
-  console.info(`${req.method} request received to add a review`);
+// // POST request to add a review
+// app.post("/api/reviews", (req, res) => {
+//   // Log that a POST request was received
+//   console.info(`${req.method} request received to add a review`);
 
-  // Prepare a response object to send back to the client
-  let response;
+//   // Prepare a response object to send back to the client
+//   let response;
 
-  // Check if there is anything in the response body
-  if (req.body && req.body.product) {
-    response = {
-      status: "success",
-      data: req.body,
-    };
-    res.json(`Review for ${response.data.product} has been added!`);
-  } else {
-    res.json("Request body must at least contain a product name");
-  }
+//   // Check if there is anything in the response body
+//   if (req.body && req.body.product) {
+//     response = {
+//       status: "success",
+//       data: req.body,
+//     };
+//     res.json(`Review for ${response.data.product} has been added!`);
+//   } else {
+//     res.json("Request body must at least contain a product name");
+//   }
 
-  // Log the response body to the console
-  console.log(req.body);
+//   // Log the response body to the console
+//   console.log(req.body);
 
-  //read file first, convert to javascript array of objects, add new object to array of objects, then write file
-});
+//   //read file first, convert to javascript array of objects, add new object to array of objects, then write file
+// });
 
 // GET request for wildcard pages
 app.get("*", (req, res) => {

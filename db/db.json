@@ -4,28 +4,8 @@
         "text": "Test text"
     },
     {
-        "title": "test 1",
-        "text": "test 2",
-        "note_id": "37dd"
-    },
-    {
-        "title": "test2 ",
-        "text": "teasetasdfasd",
-        "note_id": "e005"
-    },
-    {
-        "title": "Test Title 2",
-        "text": "Test text 2",
-        "note_id": "6f6f"
-    },
-    {
-        "title": "test 5",
-        "text": "test object numba 5",
-        "note_id": "0190"
-    },
-    {
-        "title": "asdfasd",
-        "text": "fadsf",
-        "note_id": "d547"
+        "title": "test",
+        "text": "test",
+        "id": "4562"
     }
 ]
