@@ -42,15 +42,15 @@ app.get("/notes", (req, res) => {
 // GET request for API notes
 app.get("/api/notes", (req, res) => {
   console.info(`${req.method} request received to get notes db`);
-  console.log(res.json(db));
-  // fs.readFile("./db/db.json", "utf8", (err, data) => {
-  //   if (err) {
-  //     console.error(err);
-  //   } else {
-  //     const parsedData = JSON.parse(data);
-  //     res.json(parsedData);
-  //   }
-  // });
+  // console.log(res.json(db));
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const parsedData = JSON.parse(data);
+      res.json(parsedData);
+    }
+  });
 });
 
 app.post("/api/notes", (req, res) => {
@@ -62,7 +62,7 @@ app.post("/api/notes", (req, res) => {
     const newNote = {
       title,
       text,
-      note_id: uuid(),
+      id: uuid(),
     };
     readAndAppend(newNote, "./db/db.json");
     return res.json(db);
