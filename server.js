@@ -29,6 +29,11 @@ const readAndAppend = (content, file) => {
   });
 };
 
+app.get("/", (req, res) => {
+  console.info(`${req.method} request received to get wildcard/index page`);
+  res.sendFile(path.join(__dirname, "/public/index.html"));
+});
+
 // GET request for notes page
 app.get("/notes", (req, res) => {
   console.info(`${req.method} request received to get notes page`);
