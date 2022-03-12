@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
-const util = require("util");
+// const util = require("util");
 const PORT = 3001;
 const db = require("./db/db.json");
 const uuid = require("./helpers/uuid");
@@ -69,73 +69,37 @@ app.post("/api/notes", (req, res) => {
   } else {
     res.error("Error in adding note");
   }
-  // return res.json(db);
 });
 
 app.delete("/api/notes/:id", (req, res) => {
   // Log our request to the terminal
   console.log(`${req.method} request received to get notes`);
-  res.send(`confirm delete`);
-  console.log(req.query);
+  const deleteId = req.params.id;
   console.log(req.params);
-  // if(req.query.portfolioId) {
-  //   console.log("Deleting portfolio: " + req.query.portfolioId);
-  //   stockService.deletePortfolio(req.query.portfolioId);
-  //   res.status(200).send({});
-  // } else {
-  //   res.status(400).send("Please specify a portfolioId");
-  // }
-  // if (req.params.id === req.body.id) {
-  //   fs.readFile(file, "utf8", (err, data) => {
-  //     if (err) {
-  //       console.error(err);
-  //     } else {
-  //       const parsedData = JSON.parse(data);
-  //       console.log(parsedData);
-  //       // parsedData.push(content);
-  //       // writeToFile(file, parsedData);
-  //     }
-  //   });
-  // }
-
-  // const { title, text } = req.body;
-  // if (title && text) {
-  //   const newNote = {
-  //     title,
-  //     text,
-  //     id: uuid(),
-  //   };
-  //   readAndAppend(newNote, "./db/db.json");
-  //   return res.json(db);
-  // } else {
-  //   res.error("Error in adding note");
-  // }
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const parsedData = JSON.parse(data);
+      console.log(parsedData);
+      for (var i = 0; i < parsedData.length; i++) {
+        if (parsedData[i].id === deleteId) {
+          parsedData.splice(i, 1);
+          console.log("NEWLY PARSED -----", parsedData);
+          writeToFile("./db/db.json", parsedData);
+        }
+      }
+    }
+  });
+  fs.readFile("./db/db.json", "utf8", (err, data) => {
+    if (err) {
+      console.error(err);
+    } else {
+      const parsedData = JSON.parse(data);
+      res.json(parsedData);
+    }
+  });
 });
-
-// // POST request to add a review
-// app.post("/api/reviews", (req, res) => {
-//   // Log that a POST request was received
-//   console.info(`${req.method} request received to add a review`);
-
-//   // Prepare a response object to send back to the client
-//   let response;
-
-//   // Check if there is anything in the response body
-//   if (req.body && req.body.product) {
-//     response = {
-//       status: "success",
-//       data: req.body,
-//     };
-//     res.json(`Review for ${response.data.product} has been added!`);
-//   } else {
-//     res.json("Request body must at least contain a product name");
-//   }
-
-//   // Log the response body to the console
-//   console.log(req.body);
-
-//   //read file first, convert to javascript array of objects, add new object to array of objects, then write file
-// });
 
 // GET request for wildcard pages
 app.get("*", (req, res) => {
